@@ -1,7 +1,13 @@
 pandas
 numpy
 matplotlib
+seaborn
+plotly
+scikit-learn
+xgboost
+catboost
+ydata-profiling
+ipywidgets
 
 
-
--e .
+# -e .

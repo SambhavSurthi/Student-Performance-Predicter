@@ -13,6 +13,8 @@ from dataclasses import dataclass  #used to create class variables
 from src.components.data_transformation import DataTransformation
 from src.components.data_transformation import DataTransformationConfig
 
+from src.components.model_trainer import ModelTrainerConfig,ModelTrainer
+
 @dataclass
 class DataIngetionConfig:
     train_data_path:str=os.path.join('artifacts',"train.csv")
@@ -63,5 +65,12 @@ if __name__=='__main__':
     train_path,test_path,_=obj.initiate_data_ingetion()
 
     data_transformation=DataTransformation()
-    data_transformation.initiated_data_transfomation(train_path,test_path)
+    train_array,test_arr,preprocessor_path=data_transformation.initiated_data_transfomation(train_path,test_path)
+
+    trainer=ModelTrainer()
+    r2=trainer.initiate_model_training(train_array=train_array,test_array=test_arr,preprocessor_path=preprocessor_path)
+
+    print(r2)
+
+
     print('Successful')

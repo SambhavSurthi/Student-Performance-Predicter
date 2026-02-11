@@ -13,7 +13,7 @@ from sklearn.tree import DecisionTreeRegressor
 from xgboost import XGBRegressor
 from sklearn.neighbors import KNeighborsRegressor
 from catboost import CatBoostRegressor
-from sklearn.linear_model import LassoCV,RidgeCV,ElasticNetCV
+from sklearn.linear_model import Lasso,Ridge,ElasticNet
 
 from sklearn.metrics import r2_score,mean_absolute_error,mean_squared_error
 from src.utils import save_object,evaluate_model
@@ -42,22 +42,93 @@ class ModelTrainer:
                 'randomforest': RandomForestRegressor(),
                 'decisiontree': DecisionTreeRegressor(),
                 'gradientboost': GradientBoostingRegressor(),
-                'catboost': CatBoostRegressor(verbose=False),
+                'catboost': CatBoostRegressor(verbose=False, allow_writing_files=False),
                 'xgboost': XGBRegressor(),
                 'linearregression': LinearRegression(),
                 'adaboost': AdaBoostRegressor(),
                 'knnregressor': KNeighborsRegressor(),
-                'lasso': LassoCV(),
-                'ridge': RidgeCV(),
-                'elasticnet': ElasticNetCV()
+                'lasso': Lasso(),
+                'ridge': Ridge(),
+                'elasticnet': ElasticNet()
             }
+
+
+            params = {
+                'randomforest': {
+                    'n_estimators': [100, 200, 300],
+                    'max_depth': [None, 10, 20, 30],
+                    'min_samples_split': [2, 5, 10],
+                    'min_samples_leaf': [1, 2, 4],
+                    'max_features': ['sqrt', 'log2']
+                },
+
+                'decisiontree': {
+                    'criterion': ['squared_error', 'friedman_mse'],
+                    'max_depth': [None, 10, 20, 30],
+                    'min_samples_split': [2, 5, 10],
+                    'min_samples_leaf': [1, 2, 4]
+                },
+
+                'gradientboost': {
+                    'n_estimators': [100, 200, 300],
+                    'learning_rate': [0.01, 0.05, 0.1],
+                    'max_depth': [3, 5, 7],
+                    'subsample': [0.8, 1.0]
+                },
+
+                'catboost': {
+                    'iterations': [100, 200, 300],
+                    'learning_rate': [0.01, 0.05, 0.1],
+                    'depth': [4, 6, 8],
+                    'l2_leaf_reg': [1, 3, 5]
+                },
+
+                'xgboost': {
+                    'n_estimators': [100, 200, 300],
+                    'learning_rate': [0.01, 0.05, 0.1],
+                    'max_depth': [3, 5, 7],
+                    'subsample': [0.8, 1.0],
+                    'colsample_bytree': [0.8, 1.0]
+                },
+
+                'linearregression': {
+                    'fit_intercept': [True, False]
+                },
+
+                'adaboost': {
+                    'n_estimators': [50, 100, 200],
+                    'learning_rate': [0.01, 0.1, 1.0],
+                    'loss': ['linear', 'square', 'exponential']
+                },
+
+                'knnregressor': {
+                    'n_neighbors': [3, 5, 7, 9],
+                    'weights': ['uniform', 'distance'],
+                    'algorithm': ['auto', 'ball_tree', 'kd_tree']
+                },
+
+                'lasso': {
+                    'alpha': [0.001, 0.01, 0.1, 1, 10]
+                },
+
+                'ridge': {
+                    'alpha': [0.001, 0.01, 0.1, 1, 10]
+                },
+
+                'elasticnet': {
+                    'alpha': [0.001, 0.01, 0.1, 1],
+                    'l1_ratio': [0.1, 0.5, 0.7, 0.9]
+                }
+            }
+
 
             model_report = evaluate_model(
                 X_train=X_train,
                 y_train=y_train,
                 X_test=X_test,
                 y_test=y_test,
-                models=models
+                models=models,
+                param=params
             )
 
             best_model_score = max(model_report.values())

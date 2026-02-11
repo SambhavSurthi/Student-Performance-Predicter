@@ -8,6 +8,7 @@ import pandas as pd
 import numpy as np
 
 from sklearn.metrics import r2_score
+from sklearn.model_selection import GridSearchCV
 
 def save_object(file_path, obj):
     try:
@@ -25,21 +26,48 @@ def save_object(file_path, obj):
         raise CustomException(e, sys)
 
 
-def evaluate_model(X_train,y_train,X_test,y_test,models):
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import r2_score
+
+
+def evaluate_model(X_train, y_train, X_test, y_test, models, param):
     try:
-        report={}
+        report = {}
 
-        for i in range(len(list(models))):
-            model=list(models.values())[i]
+        for model_name in models.keys():
 
-            model.fit(X_train,y_train)
-            y_train_predicted=model.predict(X_train)
-            y_test_predicted=model.predict(X_test)
+            model = models[model_name]
+            param_grid = param[model_name]
 
-            train_model_score=r2_score(y_true=y_train,y_pred=y_train_predicted)
-            test_model_score=r2_score(y_true=y_test,y_pred=y_test_predicted)
+            # GridSearchCV
+            gs = GridSearchCV(
+                estimator=model,
+                param_grid=param_grid,
+                cv=3,
+                n_jobs=-1,
+                scoring='r2'
+            )
 
-            report[list(models.keys())[i]]=test_model_score
-            return report
+            gs.fit(X_train, y_train)
+
+            # Get best model after tuning
+            best_model = gs.best_estimator_
+
+            # Predictions
+            y_train_pred = best_model.predict(X_train)
+            y_test_pred = best_model.predict(X_test)
+
+            # Scores
+            train_score = r2_score(y_train, y_train_pred)
+            test_score = r2_score(y_test, y_test_pred)
+
+            print(model_name)
+            print("Best CV Score:", gs.best_score_)
+            print("Test Score:", test_score)
+
+            report[model_name] = test_score
+
+        return report
+
     except Exception as e:
-        raise CustomException(e,sys)
+        raise CustomException(e, sys)

@@ -8,6 +8,6 @@ xgboost
 catboost
 ydata-profiling
 ipywidgets
-
+dill
 
 # -e .

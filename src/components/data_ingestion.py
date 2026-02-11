@@ -10,6 +10,9 @@ from src.logger import logging
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass  #used to create class variables
 
+from src.components.data_transformation import DataTransformation
+from src.components.data_transformation import DataTransformationConfig
+
 @dataclass
 class DataIngetionConfig:
     train_data_path:str=os.path.join('artifacts',"train.csv")
@@ -55,5 +58,10 @@ class DataIngetion:
         
 
 if __name__=='__main__':
+    print('File Running')
     obj=DataIngetion()
-    obj.initiate_data_ingetion()
+    train_path,test_path,_=obj.initiate_data_ingetion()
+
+    data_transformation=DataTransformation()
+    data_transformation.initiated_data_transfomation(train_path,test_path)
+    print('Successful')

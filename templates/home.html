@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Predict Student Score</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+<div class="min-h-screen flex items-center justify-center">
+    <div class="bg-white shadow-xl rounded-2xl p-8 max-w-3xl w-full">
+
+        <h2 class="text-3xl font-bold text-center text-indigo-600 mb-6">
+            📊 Enter Student Details
+        </h2>
+
+        <form action="/predictdata" method="POST" class="space-y-4">
+
+            <!-- Gender -->
+            <select name="gender" class="w-full p-3 border rounded-lg">
+                <option value="">Select Gender</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+            </select>
+
+            <!-- Race -->
+            <select name="race_ethnicity" class="w-full p-3 border rounded-lg">
+                <option value="">Select Race</option>
+                <option value="group A">Group A</option>
+                <option value="group B">Group B</option>
+                <option value="group C">Group C</option>
+                <option value="group D">Group D</option>
+                <option value="group E">Group E</option>
+            </select>
+
+            <!-- Parental Education -->
+            <select name="parental_level_of_education" class="w-full p-3 border rounded-lg">
+                <option value="">Select Parental Education</option>
+                <option value="bachelor's degree">Bachelor's Degree</option>
+                <option value="master's degree">Master's Degree</option>
+                <option value="associate's degree">Associate's Degree</option>
+                <option value="some college">Some College</option>
+                <option value="high school">High School</option>
+                <option value="some high school">Some High School</option>
+            </select>
+
+            <!-- Lunch -->
+            <select name="lunch" class="w-full p-3 border rounded-lg">
+                <option value="">Select Lunch Type</option>
+                <option value="standard">Standard</option>
+                <option value="free/reduced">Free/Reduced</option>
+            </select>
+
+            <!-- Test Prep -->
+            <select name="test_preparation_course" class="w-full p-3 border rounded-lg">
+                <option value="">Test Preparation Course</option>
+                <option value="none">None</option>
+                <option value="completed">Completed</option>
+            </select>
+
+            <!-- Reading Score -->
+            <input type="number" name="reading_score" placeholder="Reading Score"
+                   class="w-full p-3 border rounded-lg" required>
+
+            <!-- Writing Score -->
+            <input type="number" name="writing_score" placeholder="Writing Score"
+                   class="w-full p-3 border rounded-lg" required>
+
+            <button type="submit"
+                    class="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700">
+                Predict Math Score
+            </button>
+
+        </form>
+
+        {% if results %}
+        <div class="mt-6 p-4 bg-green-100 text-green-800 rounded-lg text-center text-xl font-semibold">
+            🎯 Predicted Math Score: {{ results }}
+        </div>
+        {% endif %}
+
+        <div class="mt-6 text-center">
+            <a href="/" class="text-indigo-600 underline">Back to Home</a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -9,5 +9,6 @@ catboost
 ydata-profiling
 ipywidgets
 dill
+flask
 
 # -e .

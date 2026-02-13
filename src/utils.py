@@ -33,6 +33,11 @@ from sklearn.metrics import r2_score
 def evaluate_model(X_train, y_train, X_test, y_test, models, param):
     try:
         report = {}
+        best_model_name = None
+        best_model = None
+        best_score = float("-inf")   # VERY IMPORTANT
+        best_params = None
+
 
         for model_name in models.keys():
 
@@ -65,9 +70,35 @@ def evaluate_model(X_train, y_train, X_test, y_test, models, param):
             print("Best CV Score:", gs.best_score_)
             print("Test Score:", test_score)
 
-            report[model_name] = test_score
+            print("Best Parameters:", gs.best_params_)
 
-        return report
+            report[model_name] = {
+                "cv_score": gs.best_score_,
+                "test_score": test_score,
+                "best_params": gs.best_params_
+            }
 
+            # Track best model based on CV score
+            if gs.best_score_ > best_score:
+                best_score = gs.best_score_
+                best_model_name = model_name
+                best_model = best_model
+                best_params = gs.best_params_
+
+        print("\n✅ Best Model Selected:", best_model_name)
+        print("Best CV Score:", best_score)
+        print("Best Hyperparameters:", best_params)
+
+        return  best_model_name, best_model, best_score, best_params, report
+
+    except Exception as e:
+        raise CustomException(e, sys)
+
+
+
+def load_object(path):
+    try:
+        with open(path, 'rb') as fileObj:
+            return dill.load(fileObj)
     except Exception as e:
         raise CustomException(e, sys)

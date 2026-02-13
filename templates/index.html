@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Performance Predictor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+<div class="min-h-screen flex items-center justify-center">
+    <div class="bg-white shadow-xl rounded-2xl p-10 max-w-4xl w-full">
+
+        <h1 class="text-4xl font-bold text-center text-indigo-600 mb-6">
+            🎓 Student Performance Predictor
+        
+
+        <p class="text-gray-700 text-lg mb-6">
+            This machine learning model predicts a student's <strong>Math Score</strong>
+            based on demographic background and academic performance indicators.
+            The best performing model selected was <strong>Lasso Regression</strong>
+            using cross-validation.
+        </p>
+        </h1>
+        <div class="mt-8 text-center">
+            <a href="/predictdata"
+               class="bg-indigo-600 text-white px-6 py-3 rounded-xl shadow hover:bg-indigo-700 transition">
+               🚀 Try Prediction
+            </a>
+        </div>
+
+        <!-- Model Details -->
+        <h2 class="text-2xl font-semibold mt-6 mb-4 text-gray-800">
+            🔍 Model Details
+        </h2>
+
+        <ul class="list-disc ml-6 text-gray-700 space-y-2">
+            <li><strong>Model Used:</strong> Lasso Regression</li>
+            <li><strong>Evaluation Metric:</strong> R² Score</li>
+            <li><strong>Model Selection:</strong> 3-Fold Cross Validation</li>
+            <li><strong>Hyperparameter Tuning:</strong> GridSearchCV</li>
+            <li><strong>Preprocessing:</strong> Encoding + Scaling Pipeline</li>
+        </ul>
+
+        <!-- Input Feature Explanation -->
+        <h2 class="text-2xl font-semibold mt-8 mb-4 text-gray-800">
+            📊 Input Features Explained
+        </h2>
+
+        <div class="space-y-4 text-gray-700">
+
+            <div class="p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-semibold text-indigo-600">1️⃣ Gender</h3>
+                <p><strong>Type:</strong> Categorical</p>
+                <p><strong>Values:</strong> Female, Male</p>
+                <p>Used to analyze performance differences across gender groups.</p>
+            </div>
+
+            <div class="p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-semibold text-indigo-600">2️⃣ Race / Ethnicity</h3>
+                <p><strong>Type:</strong> Categorical</p>
+                <p><strong>Values:</strong> Group A, B, C, D, E</p>
+                <p>Represents demographic grouping used for performance trend analysis.</p>
+            </div>
+
+            <div class="p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-semibold text-indigo-600">3️⃣ Parental Level of Education</h3>
+                <p><strong>Type:</strong> Categorical</p>
+                <p><strong>Values:</strong></p>
+                <ul class="list-disc ml-6">
+                    <li>Bachelor's Degree</li>
+                    <li>Master's Degree</li>
+                    <li>Associate's Degree</li>
+                    <li>Some College</li>
+                    <li>High School</li>
+                    <li>Some High School</li>
+                </ul>
+                <p>Higher parental education levels may correlate with better academic support.</p>
+            </div>
+
+            <div class="p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-semibold text-indigo-600">4️⃣ Lunch Type</h3>
+                <p><strong>Type:</strong> Categorical</p>
+                <p><strong>Values:</strong> Standard, Free/Reduced</p>
+                <p>Acts as an indirect indicator of socio-economic background.</p>
+            </div>
+
+            <div class="p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-semibold text-indigo-600">5️⃣ Test Preparation Course</h3>
+                <p><strong>Type:</strong> Categorical</p>
+                <p><strong>Values:</strong> None, Completed</p>
+                <p>Indicates whether the student completed a test preparation course.</p>
+            </div>
+
+            <div class="p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-semibold text-indigo-600">6️⃣ Reading Score</h3>
+                <p><strong>Type:</strong> Numeric (Integer)</p>
+                <p><strong>Range:</strong> 0 – 100</p>
+                <p>Represents student's reading performance.</p>
+            </div>
+
+            <div class="p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-semibold text-indigo-600">7️⃣ Writing Score</h3>
+                <p><strong>Type:</strong> Numeric (Integer)</p>
+                <p><strong>Range:</strong> 0 – 100</p>
+                <p>Represents student's writing performance.</p>
+            </div>
+
+        </div>
+
+        <!-- Button -->
+        <div class="mt-8 text-center">
+            <a href="/predictdata"
+               class="bg-indigo-600 text-white px-6 py-3 rounded-xl shadow hover:bg-indigo-700 transition">
+               🚀 Try Prediction
+            </a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

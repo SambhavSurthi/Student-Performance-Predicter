@@ -122,7 +122,7 @@ class ModelTrainer:
             }
 
 
-            model_report = evaluate_model(
+            best_model_name, best_model, best_score, best_params, model_report = evaluate_model(
                 X_train=X_train,
                 y_train=y_train,
                 X_test=X_test,
@@ -131,31 +131,22 @@ class ModelTrainer:
                 param=params
             )
 
-            best_model_score = max(model_report.values())
-
-            best_model_name = list(model_report.keys())[
-                list(model_report.values()).index(best_model_score)
-            ]
-
-            best_model = models[best_model_name]
-
-            if best_model_score < 0.6:
+            if best_score < 0.6:
                 raise CustomException("No Best Model Found", sys)
 
-            best_model.fit(X_train, y_train)
-
+            logging.info(f"Best Model Found: {best_model_name}")
+            logging.info(f"Best CV Score: {best_score}")
+            logging.info(f"Best Parameters: {best_params}")
+            
             save_object(
                 file_path=self.model_trainer_config.trained_model_file_path,
                 obj=best_model
             )
 
-            predicted = best_model.predict(X_test)
-            r2 = r2_score(y_test, predicted)
+            logging.info("Best model saved successfully")
 
-            logging.info(f"Best Model: {best_model_name}")
-            logging.info(f"R2 Score: {r2}")
+            return best_score
 
-            return r2
 
         except Exception as e:
             raise CustomException(e, sys)

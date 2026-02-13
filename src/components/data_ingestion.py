@@ -57,7 +57,8 @@ class DataIngetion:
 
         except Exception as e:
             raise CustomException(e,sys)
-        
+
+
 
 if __name__=='__main__':
     print('File Running')

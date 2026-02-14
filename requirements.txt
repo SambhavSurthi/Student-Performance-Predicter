@@ -4,8 +4,6 @@ matplotlib
 seaborn
 plotly
 scikit-learn
-xgboost
-catboost
 ydata-profiling
 ipywidgets
 dill
